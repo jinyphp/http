@@ -7,4 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use \Jiny\Http;
+
+// namespace Jiny\Http;
+
+if (! function_exists('http')) {
+    function http($args=null) {
+        return new \Jiny\Http\Request($args);
+    }
+}
