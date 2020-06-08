@@ -4,24 +4,32 @@ namespace Jiny\Http;
 
 class Request
 {
-    private $Response;
-
-    public $_headers;
-    public $_request;
+    private $headers;
+    private $body;
 
     public function __construct()
     {
+        // 해더정보
+        $this->headers = $_SERVER;
+
+        // 바디정보
+        $handler = fopen('php://input', 'r');
+        $this->body = stream_get_contents($handler);
+
+
+
         // echo __CLASS__."\n";
-        ob_start();
+        // ob_start();
 
         // Response 객체를 생성함
-        $this->Response = new \Jiny\Http\Response($this);
+        // $this->Response = new \Jiny\Http\Response($this);
 
         /*
         register_shutdown_function(array($this->Response, 'finish'));
         */
 
         // Request 해더 정보를 읽어 옵니다.
+        /*
         $this->getHeader();
 
         // Request Body를 읽음
@@ -29,22 +37,23 @@ class Request
             $handler = fopen('php://input', 'r');
             $this->_request = stream_get_contents($handler);
         }
-        
-
+        */
     }
 
-    public function response()
+    public function type()
     {
-        return $this->Response;
+        //return $this->headers['HTTP_CONTENT_TYPE'];
     }
 
-    private function getHeader()
+    public function body()
     {
-        if (isset($_SERVER)) {
-            $this->_headers = $_SERVER;
-        }
+        return $this->body;
+    }
 
-        return $this;
+    public function method()
+    {
+        // 대문자로 표기
+        return strtoupper($_SERVER['REQUEST_METHOD']);
     }
 
 }

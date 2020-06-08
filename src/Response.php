@@ -133,15 +133,33 @@ class Response
         511 => 'Network Authentication Required',                             // RFC6585
     );
 
-    private $Request;
-
+    private $_body;
     private $_headers;
-    private $_content;
 
-    public function __construct($request)
+    /**
+     * 싱글턴
+     */
+    private static $_instance;
+    public static function instance($args=null)
     {
-        // echo __CLASS__."\n";
-        $this->Request = $request;
+        if (!isset(self::$_instance)) {               
+            return self::$_instance = new self($args); // 인스턴스 생성
+            // return self::$Instance;
+        } else {
+            return self::$_instance; // 인스턴스가 중복
+        }
+    }
+
+    public function __construct($body=null)
+    {
+        // echo __CLASS__;
+        $this->_body = $body;
+    }
+
+    public function setBody($body)
+    {
+        $this->_body = $body;
+        return $this;
     }
 
     // 화면출력
@@ -152,6 +170,7 @@ class Response
         $this->terminate();
     }
 
+
     private function sendHeaders()
     {
         header("content-type: text/html");
@@ -160,8 +179,13 @@ class Response
 
     private function sendContents()
     {
-        $out = ob_get_clean();
-        echo $out;
+        if ($this->_body) {
+            ob_get_clean();
+            echo $this->_body;
+        } else {
+            $out = ob_get_clean();
+            echo $out;
+        }        
     }
 
     private function terminate()
@@ -169,15 +193,13 @@ class Response
         // echo "종료";
     }
 
-
-    public function redirect($url)
+    public function __destruct()
     {
-        header('location:'.$url);
+        // 종료시 버퍼를 비움
+        $this->send();
     }
 
-    public function finish() {
-        // ob_clean();
-        $output = ob_get_clean();
-        echo __CLASS__."프로그램을 종료합니다.";
-    }
+    /**
+     * 
+     */
 }
