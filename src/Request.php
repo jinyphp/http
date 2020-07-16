@@ -7,6 +7,20 @@ class Request
     private $headers;
     private $body;
 
+    /**
+     * 싱글턴
+     */
+    private static $_instance;
+    public static function instance($args=null)
+    {
+        if (!isset(self::$_instance)) {               
+            return self::$_instance = new self($args); // 인스턴스 생성
+            // return self::$Instance;
+        } else {
+            return self::$_instance; // 인스턴스가 중복
+        }
+    }
+    
     public function __construct()
     {
         // 해더정보

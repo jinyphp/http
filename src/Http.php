@@ -28,8 +28,8 @@ class Http
     // 싱클턴 초기화 메서드
     public function init()
     {
-        $this->request = \jiny\factory("\Jiny\Http\Request");
-        $this->response = \jiny\staticFactory("\Jiny\Http\Response");
+        $this->request = new \Jiny\Http\Request; //\jiny\factory("\Jiny\Http\Request");
+        $this->response = new \Jiny\Http\Response; // \jiny\staticFactory("\Jiny\Http\Response");
         return $this;
     }
 
@@ -50,9 +50,18 @@ class Http
         }         
     }
 
+    /**
+     * 메소드 읽기
+     */
     public function method()
     {
         return $this->request->method();
+    }
+
+    public function methodCallback($controller, $args=[])
+    {
+        $method = $this->request->method();
+        return $controller->$method($args);
     }
 
     /**

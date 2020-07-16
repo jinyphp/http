@@ -21,6 +21,12 @@ if (! function_exists('http')) {
     }
 }
 
+if (!function_exists("httpRequest")) {
+    function http_request()
+    {
+        return \Jiny\Http\Request::instance();
+    }
+}
 
 if (!function_exists("response")) {
     function response($body, $headers=null)
