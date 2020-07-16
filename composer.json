@@ -25,7 +25,8 @@
             "Jiny\\Http\\": "src/"
         },
         "files": [
-            "src/Helpers/Helper.php"
+            "src/Helpers/Helper.php",
+            "src/Helpers/Jiny.php"
         ]        
    
     }
