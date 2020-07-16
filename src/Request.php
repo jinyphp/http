@@ -4,7 +4,7 @@ namespace Jiny\Http;
 
 class Request
 {
-    private $headers;
+    // private $headers;
     private $body;
 
     /**
@@ -14,34 +14,24 @@ class Request
     public static function instance($args=null)
     {
         if (!isset(self::$_instance)) {               
-            return self::$_instance = new self($args); // 인스턴스 생성
-            // return self::$Instance;
+            self::$_instance = new self($args); // 인스턴스 생성
+            self::$_instance->init();
+            return self::$_instance;
         } else {
             return self::$_instance; // 인스턴스가 중복
         }
     }
     
-    public function __construct()
+    private function init()
     {
-        // 해더정보
-        $this->headers = $_SERVER;
-
         // 바디정보
         $handler = fopen('php://input', 'r');
         $this->body = stream_get_contents($handler);
+    }
 
-
-
-        // echo __CLASS__."\n";
-        // ob_start();
-
-        // Response 객체를 생성함
-        // $this->Response = new \Jiny\Http\Response($this);
-
-        /*
-        register_shutdown_function(array($this->Response, 'finish'));
-        */
-
+    public function __construct()
+    {
+        $this->init();
         // Request 해더 정보를 읽어 옵니다.
         /*
         $this->getHeader();
@@ -62,6 +52,14 @@ class Request
     public function body()
     {
         return $this->body;
+    }
+
+    public function header($key)
+    {
+        if ($key) {
+            return $_SERVER[$key];
+        }
+        return $_SERVER;
     }
 
     public function method()

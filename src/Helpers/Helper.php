@@ -22,17 +22,18 @@ if (! function_exists('http')) {
 }
 
 if (!function_exists("httpRequest")) {
-    function http_request()
+    function httpRequest()
     {
         return \Jiny\Http\Request::instance();
     }
 }
 
-if (!function_exists("response")) {
-    function response($body, $headers=null)
+if (!function_exists("httpResponse")) {
+    function httpResponse()
     {
         $res = \Jiny\Http\Response::instance();
-        $res->setBody($body);
+        //$res->setBody($body);
+        return $res;
     }
 }
 
@@ -50,11 +51,5 @@ if (! function_exists('redirect')) {
     }
 }
 
-// 페이지 이동
-if (! function_exists('endpoint')) {
-    function endpoint() {
-        return new \Jiny\Http\Endpoint;
-    }
-}
 
 

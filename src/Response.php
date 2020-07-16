@@ -134,7 +134,7 @@ class Response
     );
 
     private $_body;
-    private $_headers;
+    private $_headers = [];
 
     /**
      * 싱글턴
@@ -156,9 +156,17 @@ class Response
         $this->_body = $body;
     }
 
-    public function setBody($body)
+    // body 설정
+    public function body($body)
     {
         $this->_body = $body;
+        return $this;
+    }
+
+    // header 설정
+    public function header($header)
+    {
+        $this->_headers []= $header;
         return $this;
     }
 

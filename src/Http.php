@@ -24,41 +24,19 @@ class Http
         return self::$_instance;
     }
 
-    // 
-    // 싱클턴 초기화 메서드
+    public $Request;
+    public $Response;
+    public $Endpoint;
+    // 초기화 메서드
     public function init()
     {
-        $this->request = new \Jiny\Http\Request; //\jiny\factory("\Jiny\Http\Request");
-        $this->response = new \Jiny\Http\Response; // \jiny\staticFactory("\Jiny\Http\Response");
+        $this->Request = \Jiny\HttpRequest();
+        $this->Response = \Jiny\HttpResponse();
+        $this->Endpoint = \Jiny\HttpEndpoint();
         return $this;
     }
 
-    public $request;
-    public $response;
-    private $_endpoint;
-    
-    public function endpoint()
-    {
-        
-        if ($this->_endpoint) {
-            return $this->_endpoint;
-           
-        } else {
-            
-            return \jiny\factory("\Jiny\Http\Endpoint");
-            
-        }         
-    }
-
-    /**
-     * 메소드 읽기
-     */
-    public function method()
-    {
-        return $this->request->method();
-    }
-
-    public function methodCallback($controller, $args=[])
+    public function callback($controller, $args=[])
     {
         $method = $this->request->method();
         return $controller->$method($args);
