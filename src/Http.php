@@ -27,6 +27,7 @@ class Http
     public $Request;
     public $Response;
     public $Endpoint;
+    
     // 초기화 메서드
     public function init()
     {
@@ -38,7 +39,7 @@ class Http
 
     public function callback($controller, $args=[])
     {
-        $method = $this->request->method();
+        $method = $this->Request->method();
         return $controller->$method($args);
     }
 

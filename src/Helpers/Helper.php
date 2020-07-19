@@ -52,4 +52,37 @@ if (! function_exists('redirect')) {
 }
 
 
+/**
+ *  폼데이터
+ */
+
+function formData($key=null)
+{
+    if($key) {
+        return $_POST['data'][$key];
+    } else {
+        // 배열
+        return $_POST['data'];
+    }
+}
+
+function formPOST($key=null)
+{
+    if($key) {
+        return $_POST[$key];
+    } else {
+        // 배열
+        return $_POST;
+    }
+}
+
+function formGET($key=null)
+{
+    if($key) {
+        return $_GET[$key];
+    } else {
+        // 배열
+        return $_GET;
+    }
+}
 

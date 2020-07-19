@@ -44,9 +44,9 @@ class Request
         */
     }
 
-    public function type()
+    public function contentType()
     {
-        //return $this->headers['HTTP_CONTENT_TYPE'];
+        return $_SERVER['HTTP_CONTENT_TYPE'];
     }
 
     public function body()

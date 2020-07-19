@@ -35,13 +35,21 @@ class Endpoint
 
     private function init()
     {
-        $points = explode("/", $_SERVER['PATH_INFO']);
-        unset($points[0]); // 0번 배열은 제거
-        $this->points = array_merge($points);
+        //$points = explode("/", $_SERVER['PATH_INFO']);
+        if(isset($_SERVER['REQUEST_URI'])) {
+            $points = explode("/", $_SERVER['REQUEST_URI']);
+            unset($points[0]); // 0번 배열은 제거
+            $this->points = array_merge($points);
+        }        
 
         if (isset($_SERVER['QUERY_STRING'])) {
             parse_str($_SERVER['QUERY_STRING'], $this->query);
         } 
+    }
+
+    public function uris()
+    {
+        return $this->points;
     }
 
     public function params($i=0)
