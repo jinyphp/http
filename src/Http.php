@@ -24,18 +24,46 @@ class Http
         return self::$_instance;
     }
 
-    public $Request;
-    public $Response;
-    public $Endpoint;
+    
+    
+    
     
     // 초기화 메서드
     public function init()
     {
-        $this->Request = \Jiny\HttpRequest();
-        $this->Response = \Jiny\HttpResponse();
-        $this->Endpoint = \Jiny\HttpEndpoint();
+        $this->request();
+        $this->response();
+        $this->endpoint();
         return $this;
     }
+
+    public $Endpoint;
+    public function endpoint()
+    {
+        if (!$this->Endpoint) {
+            $this->Endpoint = \Jiny\HttpEndpoint();
+        }
+        return $this->Endpoint;
+    }
+
+    public $Request;
+    public function request()
+    {
+        if (!$this->Request) {
+            $this->Request = \Jiny\HttpRequest();
+        }
+        return $this->Request;
+    }
+
+    public $Response;
+    public function response()
+    {
+        if (!$this->Response) {
+            $this->Response = \Jiny\HttpResponse();
+        }
+        return $this->Response;
+    }
+
 
     public function callback($controller, $args=[])
     {

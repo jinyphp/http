@@ -181,7 +181,7 @@ class Response
 
     private function sendHeaders()
     {
-        header("content-type: text/html");
+        // header("content-type: text/html");
         // header("content-type: application/json");
     }
 

@@ -46,7 +46,13 @@ class Request
 
     public function contentType()
     {
-        return $_SERVER['HTTP_CONTENT_TYPE'];
+        if (isset($_SERVER['HTTP_CONTENT_TYPE'])) {
+            // application/x-www-form-urlencoded; charset=UTF-8
+            $type = explode(";",$_SERVER['HTTP_CONTENT_TYPE']);
+            // return $_SERVER['HTTP_CONTENT_TYPE'];
+            return $type[0];
+        }
+        return null;
     }
 
     public function body()

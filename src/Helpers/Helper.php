@@ -59,11 +59,12 @@ if (! function_exists('redirect')) {
 function formData($key=null)
 {
     if($key) {
-        return $_POST['data'][$key];
+        if(isset($_POST['data'][$key])) return $_POST['data'][$key];
     } else {
         // 배열
-        return $_POST['data'];
+        if(isset($_POST['data'])) return $_POST['data'];
     }
+    return [];
 }
 
 function formPOST($key=null)
@@ -86,3 +87,19 @@ function formGET($key=null)
     }
 }
 
+
+namespace jiny\http;
+
+if (!function_exists("request")) {
+    function request()
+    {
+        return \Jiny\Http\Request::instance();
+    }
+}
+
+if (!function_exists("endpoint")) {
+    function endpoint()
+    {
+        return \Jiny\Http\Endpoint::instance();
+    }
+}

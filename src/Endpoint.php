@@ -35,19 +35,43 @@ class Endpoint
 
     private function init()
     {
-        //$points = explode("/", $_SERVER['PATH_INFO']);
-        if(isset($_SERVER['REQUEST_URI'])) {
-            $points = explode("/", $_SERVER['REQUEST_URI']);
-            unset($points[0]); // 0번 배열은 제거
-            $this->points = array_merge($points);
-        }        
+        /*
+        if (isset($_SERVER['PATH_INFO'])) {
+            $point = \ltrim($_SERVER['PATH_INFO'],"/");
+            $this->points = \explode("/", $point);
+            // print_r($points);
+        } else {
+            $this->points = []; // root
+        }
+        */
+        $this->point($_SERVER['PATH_INFO']);
 
         if (isset($_SERVER['QUERY_STRING'])) {
-            parse_str($_SERVER['QUERY_STRING'], $this->query);
+            \parse_str($_SERVER['QUERY_STRING'], $this->query);
         } 
     }
 
-    public function uris()
+    private function point()
+    {
+        if (isset($_SERVER['PATH_INFO'])) {
+            $point = \ltrim($_SERVER['PATH_INFO'],"/");
+            $this->points = \explode("/", $point);
+            // print_r($points);
+        } else {
+            $this->points = []; // root
+        }
+    }
+
+    public function uri():string
+    {
+        if (isset($_SERVER['PATH_INFO'])) {
+            return $_SERVER['PATH_INFO'];
+        }
+
+        return "/";        
+    }
+
+    public function uris():array
     {
         return $this->points;
     }
