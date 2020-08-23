@@ -97,6 +97,13 @@ if (!function_exists("request")) {
     }
 }
 
+if (!function_exists("response")) {
+    function response()
+    {
+        return \Jiny\Http\Response::instance();
+    }
+}
+
 if (!function_exists("endpoint")) {
     function endpoint()
     {

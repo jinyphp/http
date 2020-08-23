@@ -133,6 +133,7 @@ class Response
         511 => 'Network Authentication Required',                             // RFC6585
     );
 
+    public $body;
     private $_body;
     private $_headers = [];
 
@@ -187,9 +188,9 @@ class Response
 
     private function sendContents()
     {
-        if ($this->_body) {
+        if ($this->body) {
             ob_get_clean();
-            echo $this->_body;
+            echo $this->body;
         } else {
             $out = ob_get_clean();
             echo $out;
@@ -204,7 +205,7 @@ class Response
     public function __destruct()
     {
         // 종료시 버퍼를 비움
-        $this->send();
+        // $this->send();
     }
 
     /**

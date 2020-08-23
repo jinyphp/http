@@ -44,7 +44,8 @@ class Endpoint
             $this->points = []; // root
         }
         */
-        $this->point($_SERVER['PATH_INFO']);
+        if(isset($_SERVER['PATH_INFO'])) $pathInfo = $_SERVER['PATH_INFO']; else $pathInfo = "/";
+        $this->point($pathInfo);
 
         if (isset($_SERVER['QUERY_STRING'])) {
             \parse_str($_SERVER['QUERY_STRING'], $this->query);
